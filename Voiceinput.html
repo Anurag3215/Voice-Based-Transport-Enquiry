@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>Voice Transport Enquiry</title>
+</head>
+
+<body>
+
+<h2>Voice-Based Transport Enquiry</h2>
+
+<form action="searchtransport.php" method="GET">
+
+Source:
+<input type="text" id="source" name="source">
+
+Destination:
+<input type="text" id="destination" name="destination">
+
+<input type="submit" value="Search">
+
+</form>
+
+<br>
+
+<button onclick="startVoice()">
+Speak Route
+</button>
+
+<p>Example say: Palakkad to Kochi</p>
+
+<script>
+
+function startVoice(){
+
+const recognition =
+new webkitSpeechRecognition();
+
+recognition.lang = "en-IN";
+
+recognition.start();
+
+recognition.onresult = function(event){
+
+let text =
+event.results[0][0].transcript;
+
+let parts = text.split(" to ");
+
+if(parts.length==2){
+
+document.getElementById("source").value =
+parts[0].trim();
+
+document.getElementById("destination").value =
+parts[1].trim();
+
+}
+
+};
+
+}
+
+</script>
+
+</body>
+</html>
